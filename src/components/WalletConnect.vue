@@ -1,8 +1,30 @@
 <template>
   <div>
+    <p v-if="isConnected">{{ getAccount }}</p>
     <div>
       <button v-if="!isConnected" @click="connect">Connect Wallet</button>
       <button v-else @click="disconnect">Disconnect wallet</button>
+    </div>
+    <div v-if="isConnected">
+      <button @click="bet">Bet !</button>
+    </div>
+    <div v-if="isLoading">
+      <p>Sua transação está sendo confirmada, por favor aguarde!</p>
+    </div>
+    <div v-if="isConfirmed" class="transaction">
+      <p>Sua aposta foi efetuada com sucesso!</p>
+      <a
+        :href="`https://testnet.bscscan.com/tx/${transactionData.transactionHash}`"
+        >Clique aqui e confira sua transação</a
+      >
+      <p>Hash: {{ transactionData.transactionHash }}</p>
+    </div>
+
+    <div v-if="players" class="players">
+      Jogadores que já apostaram!
+      <div v-for="player in players" :key="player">
+        <p>{{ player }}</p>
+      </div>
     </div>
 
     <web3-modal-vue
@@ -37,6 +59,7 @@ export default {
       number: 0,
       balance: 0,
       account: "",
+      players: [],
     };
   },
   mounted() {
@@ -46,10 +69,17 @@ export default {
       if (web3modal.cachedProvider) {
         this.connect();
       }
+      this.players = await this.$store.dispatch("getPlayers");
     });
   },
   computed: {
-    ...mapGetters(["getAccount", "isConnected"]),
+    ...mapGetters([
+      "getAccount",
+      "isConnected",
+      "isLoading",
+      "transactionData",
+      "isConfirmed",
+    ]),
   },
   methods: {
     connect() {
@@ -58,9 +88,15 @@ export default {
     disconnect() {
       this.$store.dispatch("resetApp");
     },
+    bet() {
+      this.$store.dispatch("bet");
+    },
   },
 };
 </script>
 
 <style>
+.players {
+  margin-top: 50px;
+}
 </style>
