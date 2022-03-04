@@ -53,6 +53,7 @@ const web3ModalStore = {
       provider.on("accountsChanged", async (accounts) => {
         if (accounts.length > 0) {
           commit("setAccount", accounts[0]);
+          commit("resetLottery");
         } else {
           await dispatch("resetApp");
         }

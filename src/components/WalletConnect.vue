@@ -15,6 +15,7 @@
       <p>Sua aposta foi efetuada com sucesso!</p>
       <a
         :href="`https://testnet.bscscan.com/tx/${transactionData.transactionHash}`"
+        target="_blank"
         >Clique aqui e confira sua transação</a
       >
       <p>Hash: {{ transactionData.transactionHash }}</p>

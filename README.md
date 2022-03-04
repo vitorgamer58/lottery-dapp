@@ -1,5 +1,7 @@
 # lottery-dapp
 
+A front-end for [SemanaSolidity](https://github.com/vitorgamer58/SemanaSolidity "SemanaSolidity") lottery contract
+
 ## Project setup
 ```
 npm install
