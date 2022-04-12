@@ -9,22 +9,25 @@
       <button @click="bet">Bet !</button>
     </div>
     <div v-if="isLoading">
-      <p>Sua transação está sendo confirmada, por favor aguarde!</p>
+      <p>Your transaction is being confirmed, please wait!</p>
     </div>
     <div v-if="isConfirmed" class="transaction">
-      <p>Sua aposta foi efetuada com sucesso!</p>
+      <p>Your bet has been placed successfully!</p>
       <a
         :href="`https://testnet.bscscan.com/tx/${transactionData.transactionHash}`"
         target="_blank"
-        >Clique aqui e confira sua transação</a
+        >Click here and check your transaction</a
       >
       <p>Hash: {{ transactionData.transactionHash }}</p>
     </div>
 
     <div v-if="players" class="players">
-      Jogadores que já apostaram!
-      <div v-for="player in players" :key="player">
+      Players who have already bet!
+      <div v-for="player in getPlayers" :key="player">
         <p>{{ player }}</p>
+      </div>
+      <div>
+        <p>Prize: {{ getBalance }}</p>
       </div>
     </div>
 
@@ -71,6 +74,7 @@ export default {
         this.connect();
       }
       this.players = await this.$store.dispatch("getPlayers");
+      await this.$store.dispatch("getBalance");
     });
   },
   computed: {
@@ -80,6 +84,8 @@ export default {
       "isLoading",
       "transactionData",
       "isConfirmed",
+      "getBalance",
+      "getPlayers"
     ]),
   },
   methods: {
