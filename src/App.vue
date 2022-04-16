@@ -1,12 +1,25 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/admin">Admin</router-link>
+      <div class="nav-itens">
+        <h1>Lottery dApp</h1>
+        <div>
+          <WalletConnect />
+        </div>
+      </div>
     </div>
-    <router-view/>
+    <div style="max-width: 1200px; margin: 0 auto"><router-view /></div>
   </div>
 </template>
+
+<script>
+import WalletConnect from "../src/components/WalletConnect.vue";
+export default {
+  components: {
+    WalletConnect,
+  },
+};
+</script>
 
 <style>
 #app {
@@ -15,10 +28,30 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  margin: 0 auto;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  background-color: rgba(205, 205, 240, 0.402);
 }
 
 #nav {
-  padding: 5px;
+  background-color: white;
+}
+
+.nav-itens {
+  padding: 5px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 26px;
 }
 
 #nav a {
@@ -28,5 +61,11 @@
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+@media screen and (max-width: 768px) {
+  #nav {
+    padding: 5px 20px;
+  }
 }
 </style>

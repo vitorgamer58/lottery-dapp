@@ -1,36 +1,9 @@
 <template>
   <div>
-    <p v-if="isConnected">{{ getAccount }}</p>
-    <div>
+    <div class="button-wallet">
       <button v-if="!isConnected" @click="connect">Connect Wallet</button>
       <button v-else @click="disconnect">Disconnect wallet</button>
     </div>
-    <div v-if="isConnected">
-      <button @click="bet">Bet !</button>
-    </div>
-    <div v-if="isLoading">
-      <p>Your transaction is being confirmed, please wait!</p>
-    </div>
-    <div v-if="isConfirmed" class="transaction">
-      <p>Your bet has been placed successfully!</p>
-      <a
-        :href="`https://testnet.bscscan.com/tx/${transactionData.transactionHash}`"
-        target="_blank"
-        >Click here and check your transaction</a
-      >
-      <p>Hash: {{ transactionData.transactionHash }}</p>
-    </div>
-
-    <div v-if="players" class="players">
-      Players who have already bet!
-      <div v-for="player in getPlayers" :key="player">
-        <p>{{ player }}</p>
-      </div>
-      <div>
-        <p>Prize: {{ getBalance }}</p>
-      </div>
-    </div>
-
     <web3-modal-vue
       ref="web3modal"
       :theme="theme"
@@ -60,10 +33,6 @@ export default {
           },
         },
       },
-      number: 0,
-      balance: 0,
-      account: "",
-      players: [],
     };
   },
   mounted() {
@@ -73,20 +42,10 @@ export default {
       if (web3modal.cachedProvider) {
         this.connect();
       }
-      this.players = await this.$store.dispatch("getPlayers");
-      await this.$store.dispatch("getBalance");
     });
   },
   computed: {
-    ...mapGetters([
-      "getAccount",
-      "isConnected",
-      "isLoading",
-      "transactionData",
-      "isConfirmed",
-      "getBalance",
-      "getPlayers"
-    ]),
+    ...mapGetters(["getAccount", "isConnected"]),
   },
   methods: {
     connect() {
@@ -95,15 +54,22 @@ export default {
     disconnect() {
       this.$store.dispatch("resetApp");
     },
-    bet() {
-      this.$store.dispatch("bet");
-    },
   },
 };
 </script>
 
 <style>
-.players {
-  margin-top: 50px;
+.button-wallet button {
+  padding: 0 16px;
+  height: 36px;
+  border-radius: 16px;
+  border: none;
+  background-color: rgb(31, 199, 212);
+  color: white;
+  font-weight: bold;
+  opacity: 1;
+  font-size: 16px;
+  transition: background-color 0.2s ease 0s, opacity 0.2s ease 0s;
+  cursor: pointer;
 }
 </style>

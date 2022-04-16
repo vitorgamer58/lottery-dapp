@@ -41,6 +41,10 @@
       "parser": "babel-eslint"
     }
   },
+  "prettier": {
+    "printWidth": 120,
+    "traillingComma": "none"
+  },
   "browserslist": [
     "> 1%",
     "last 2 versions",
