@@ -42,12 +42,13 @@ export default {
   width: 100%;
 }
 
-.bet-error span {
+.bet-error {
   font-weight: 400;
   font-size: 18px;
   color: #fff;
   padding-left: 0px;
   width: 100%;
+  border-radius: 18px 18px 0 0;
 }
 
 .bet-button {

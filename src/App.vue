@@ -64,7 +64,7 @@ h1 {
 }
 
 @media screen and (max-width: 768px) {
-  #nav {
+  .nav-itens {
     padding: 5px 20px;
   }
 }
