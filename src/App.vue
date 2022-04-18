@@ -2,7 +2,11 @@
   <div id="app">
     <div id="nav">
       <div class="nav-itens">
-        <h1>Lottery dApp</h1>
+        <div class="title">
+          <h1>Lottery dApp</h1>
+          <span>TESTNET</span>
+        </div>
+
         <div>
           <WalletConnect />
         </div>
@@ -52,6 +56,7 @@ body {
 
 h1 {
   font-size: 26px;
+  margin: 0;
 }
 
 #nav a {
@@ -61,6 +66,20 @@ h1 {
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title span {
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  border-radius: 10px;
+  width: 90px;
 }
 
 @media screen and (max-width: 768px) {
